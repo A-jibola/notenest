@@ -1,0 +1,4 @@
+<div id="notification_<%= notification.id %>" class="bg-white border border-gray-200 rounded-lg p-4 mb-3 shadow-sm">
+    <p class="text-[var(--text-color)] font-semibold text-sm"> <%= notification.title%> </p>
+    <small class="text-xs text-gray-500 mt-1"><%= time_ago_in_words(notification.created_at) %> ago </small>
+</div>

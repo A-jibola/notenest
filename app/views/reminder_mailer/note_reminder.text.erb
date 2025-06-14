@@ -1,0 +1,10 @@
+Reminder: <%= @note.title %>
+
+Hi <%= @user.first_name %>,
+
+This is a reminder for your note titled "<%= @note.title %>".
+
+Description:
+<%= @note.description.to_plain_text %>
+
+Check it out in your NoteNest app: <%= note_url(@note) %>

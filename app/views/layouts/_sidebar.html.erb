@@ -1,0 +1,70 @@
+<aside class="hidden md:flex flex-col w-64 h-screen p-6 bg-[var(--secondary-color)] fixed">
+    <div class="text-2xl font-bold mb-8">NoteNest</div>
+
+    <nav class="flex-1 space-y-4">
+      <%= link_to root_path, class: "flex items-center space-x-3 hover:text-[var(--dark-color)]" do %>
+        <i class="fas fa-home"></i>
+        <span>Dashboard</span>
+      <% end %>
+
+      <%= link_to notes_path, class: "flex items-center space-x-3 hover:text-[var(--dark-color)]" do %>
+        <i class="fas fa-sticky-note"></i>
+        <span>Notes</span>
+      <% end %>
+
+    </nav>
+
+    <div class="mt-auto">
+      
+      <%= link_to edit_profile_settings_path, class: " mb-3 flex items-center space-x-3 hover:text-[var(--dark-color)]" do %>
+        <i class="fas fa-user-circle"></i>
+        <span>Change Theme</span>
+      <% end %>
+      
+      <%= link_to edit_user_registration_path, class: "flex items-center space-x-3 hover:text-[var(--dark-color)]" do %>
+        <i class="fas fa-user-circle"></i>
+        <span>Edit Account</span>
+      <% end %>
+
+      <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: "flex items-center space-x-3 mt-4 hover:text-red-500" %>
+
+    </div>
+  </aside>
+
+  <!-- Mobile Topbar -->
+<div class="md:hidden flex justify-between items-center bg-[var(--primary-color)] text-[var(--text-color)] p-4 fixed top-0 w-full z-20" data-controller="navigation">
+  <div class="text-2xl font-bold">NoteNest</div>
+  <button class="focus:outline-none" data-action="navigation#toggleMenu">
+    <i class="fas fa-bars text-2xl"></i>
+  </button>
+</div>
+
+<!-- Mobile Collapsible Menu -->
+<div id="mobile-menu-toggle" class="hidden flex flex-col bg-[var(--primary-color)] text-[var(--text-color)] p-4 pt-16 fixed top-0 left-0 w-full h-screen z-10">
+  <%= link_to root_path, class: "flex items-center space-x-3 p-3 rounded hover:bg-[var(--secondary-color)] transition" do %>
+    <i class="fas fa-home"></i>
+    <span>Dashboard</span>
+  <% end %>
+
+  <%= link_to notes_path, class: "flex items-center space-x-3 p-3 rounded hover:bg-[var(--secondary-color)] transition" do %>
+    <i class="fas fa-sticky-note"></i>
+    <span>Notes</span>
+  <% end %>
+
+  <%= link_to edit_profile_settings_path, class: "flex items-center space-x-3 p-3 rounded hover:bg-[var(--secondary-color)] transition" do %>
+    <i class="fas fa-cog"></i>
+    <span>Change Theme</span>
+  <% end %>
+
+  
+  <%= link_to edit_user_registration_path, class: "flex items-center space-x-3 p-3 rounded hover:bg-[var(--secondary-color)] transition" do %>
+    <i class="fas fa-cog"></i>
+    <span>Edit Account</span>
+  <% end %>
+
+  <%= link_to destroy_user_session_path, method: :delete, class: "flex items-center space-x-3 p-3 rounded text-red-600 hover:bg-red-50 transition" do %>
+    <i class="fas fa-sign-out-alt"></i>
+    <span>Sign Out</span>
+  <% end %>
+</div>
+

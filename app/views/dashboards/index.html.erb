@@ -1,0 +1,69 @@
+<div class="p-8 min-h-screen">
+  <h1 class="text-3xl font-bold mb-8 text-[var(--text-color)]">Welcome back, <%= current_user.first_name %>!</h1>
+
+  <!-- Metric Cards -->
+  <div class="grid md:grid-cols-4 gap-6 mb-8">
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+      <h3 class="text-lg font-semibold mb-2">Notes</h3>
+      <p class="text-3xl font-bold text-[var(--dark-color)]"><%= @total_notes %></p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+      <h3 class="text-lg font-semibold mb-2">Completed Steps</h3>
+      <p class="text-3xl font-bold text-[var(--dark-color)]"><%= @completed_steps %></p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+      <h3 class="text-lg font-semibold mb-2">Pending Steps</h3>
+      <p class="text-3xl font-bold text-[var(--dark-color)]"><%= @pending_steps %></p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow-md">
+      <h3 class="text-lg font-semibold mb-2">Missed notes</h3>
+      <p class="text-3xl font-bold text-[var(--google-red)]"><%= @missed_notes_count %></p>
+    </div>
+  </div>
+
+<div class="grid md:grid-cols-2 gap-2 mb-8">
+  <!-- Upcoming notes -->
+  <div class="bg-white p-6 rounded-2xl shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Upcoming notes</h2>
+
+    <% if @upcoming_notes.any? %>
+      <ul>
+        <% @upcoming_notes.each do |note| %>
+          <li class="flex justify-between items-center py-2 border-b border-gray-200">
+            <div>
+              <strong><%= note.title %></strong><br>
+              <small class="text-gray-500">In <%= time_ago_in_words(note.due_date) %></small>
+            </div>
+            <%= link_to 'View', note_path(note), class: "text-[var(--dark-color)] hover:underline" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-gray-600">No upcoming notes.</p>
+    <% end %>
+  </div>
+
+  <div class="bg-white p-6 rounded-2xl shadow-md">
+    <h2 class="text-xl font-semibold mb-4">Missed notes</h2>
+
+    <% if @missed_notes.any? %>
+      <ul>
+        <% @missed_notes.each do |note| %>
+          <li class="flex justify-between items-center py-2 border-b border-gray-200">
+            <div>
+              <strong><%= note.title %></strong><br>
+              <small class="text-gray-500"><%= time_ago_in_words(note.due_date) %> Ago</small>
+            </div>
+            <%= link_to 'View', note_path(note), class: "text-[var(--dark-color)] hover:underline" %>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p class="text-gray-600">No missed notes.</p>
+    <% end %>
+  </div>
+</div>
+</div>

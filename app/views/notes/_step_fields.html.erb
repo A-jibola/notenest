@@ -1,0 +1,53 @@
+<div class="step-fields handle" data-step-id="<%= f.object.id || 'new' %>">
+
+    <div class="p-4 border border-gray-200 rounded-xl shadow-sm bg-white">
+        <div class="flex justify-between items-center">
+            <h4 class="text-[var(--text-color)] font-semibold text-sm">
+            Step <%= f.object.order || 'New' %>
+            </h4>
+            <div>
+                <%= f.check_box :_destroy %> 
+                <%= f.label :_destroy, "Remove this step", class: "text-xs text-[var(--google-red)] cursor-pointer hover:underline" %>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+            <%= f.label :name, class: "block text-xs font-medium text-[var(--text-color)] mb-1" %>
+            <%= f.text_field :name, class: "w-full rounded-md border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-[var(--primary-color)] focus:outline-none" %>
+            </div>
+
+            <div>
+            <%= f.label :summary, class: "block text-xs font-medium text-[var(--text-color)] mb-1" %>
+            <%= f.text_field :summary, class: "w-full rounded-md border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-[var(--primary-color)] focus:outline-none" %>
+            </div>
+        </div>
+
+        <div>
+            <%= f.label :details, class: "block text-xs font-medium text-[var(--text-color)] mb-1" %>
+            <%= f.rich_text_area :details, class: "w-full border border-gray-300 rounded-md text-sm" %>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div>
+            <%= f.label :status, class: "block text-xs font-medium text-[var(--text-color)] mb-1" %>
+            <%= f.select :status, Step.statuses.keys, {}, class: "w-full rounded-md border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-[var(--primary-color)] focus:outline-none" %>
+            </div>
+
+            <div>
+            <%= f.label :due_date, class: "block text-xs font-medium text-[var(--text-color)] mb-1" %>
+            <%= f.date_field :due_date, class: "w-full rounded-md border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-[var(--primary-color)] focus:outline-none" %>
+            </div>
+
+            <div>
+            <%= f.label :reminder_at, class: "block text-xs font-medium text-[var(--text-color)] mb-1" %>
+            <%= f.date_field :reminder_at, class: "w-full rounded-md border border-gray-300 p-2 text-sm focus:ring-2 focus:ring-[var(--primary-color)] focus:outline-none" %>
+            </div>
+        </div>
+
+        <div class="absolute top-0 right-0 mt-2 mr-2 bg-[var(--accent-color)] text-white text-xs rounded-full px-2 py-1">
+            <%= f.object.status.presence || "New" %>
+        </div>
+    </div>
+
+</div>

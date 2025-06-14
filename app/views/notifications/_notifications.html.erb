@@ -1,0 +1,3 @@
+<% Notification.where(user: current_user).order(created_at: :desc).limit(10).each do |notification| %>
+    <%= render 'notifications/notification', notification: notification %>
+<% end %>

@@ -1,0 +1,23 @@
+<div class="max-w-xl mx-auto mt-10 p-8 rounded-2xl shadow-lg bg-[var(--primary-color)]">
+  <h2 class="text-2xl font-bold mb-6 text-[var(--text-color)]">View Preferences</h2>
+
+  <%= form_with model: @user, url: profile_settings_path, method: :put, class: "space-y-6" do |f| %>
+
+    <div>
+      <%= f.label :theme, class: "block text-sm font-medium text-[var(--text-color)] mb-1" %>
+      <%= f.select :theme, ["slate mist", "citrus grove", "royal indigo", "sunset blush", "charcoal mint", "aurora pop", "peach crush", "ocean deep", "velvet rose", "default"], prompt: "Select Theme", class: "mt-1 block w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--dark-color)]" %>
+      <p class="text-xs text-gray-500 mt-1">Choose your preferred application theme.</p>
+    </div>
+
+    <div>
+      <%= f.label :font, class: "block text-sm font-medium text-[var(--text-color)] mb-1" %>
+      <%= f.select :font, ["clean-sans", "modern mono", "elegant serif-sans", "classic humanist", "round display", "friendly script", "minimal grotesk", "neutral sans", "refined display", "code terminal"], prompt: "Select Font", class: "mt-1 block w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[var(--dark-color)]" %>
+      <p class="text-xs text-gray-500 mt-1">Pick a font style for your reading comfort.</p>
+    </div>
+
+    <div>
+      <%= f.submit "Save Settings", class: "w-full py-3 px-6 bg-[var(--dark-color)] text-white font-semibold rounded-lg hover:bg-[var(--accent-color)] transition" %>
+    </div>
+    
+  <% end %>
+</div>

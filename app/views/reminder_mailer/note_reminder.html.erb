@@ -1,0 +1,10 @@
+<h1>Reminder: <%= @note.title %></h1>
+
+<p>Hi <%= @user.first_name %>,</p>
+
+<p>This is a reminder for your note titled "<strong><%= @note.title %></strong>".</p>
+
+<p>Description:</p>
+<p><%= @note.description.to_plain_text %></p>
+
+<p>Check it out in your <a href="<%= note_url(@note) %>">NoteNest app</a>.</p>

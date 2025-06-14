@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Resend Unlock Instructions</title>
+    <style>
+      :root {
+        --primary-bg: #DDF6D2;
+        --accent-bg: #B0DB9C;
+        --text-color: #333333;
+        --button-bg: #B0DB9C;
+        --button-text: #ffffff;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--primary-bg);
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: var(--text-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .auth-container {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 12px;
+        max-width: 400px;
+        width: 90%;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+      }
+
+      .field {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 6px;
+      }
+
+      input[type="email"] {
+        width: 100%;
+        padding: 12px 16px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+      }
+
+      .actions {
+        margin-top: 30px;
+      }
+
+      input[type="submit"] {
+        width: 100%;
+        background: var(--button-bg);
+        color: var(--button-text);
+        padding: 14px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+      }
+
+      input[type="submit"]:hover {
+        background: #A1CD89;
+      }
+
+      .links {
+        text-align: center;
+        margin-top: 20px;
+        font-size: 14px;
+      }
+
+      .links a {
+        color: var(--accent-bg);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="auth-container">
+      <h2>Resend Unlock Instructions</h2>
+
+      <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+
+        <div class="field">
+          <%= f.label :email %>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Resend Unlock Instructions" %>
+        </div>
+      <% end %>
+
+      <div class="links">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </body>
+</html>

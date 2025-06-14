@@ -1,0 +1,165 @@
+/*
+ * This is a manifest file that'll be compiled into application.css.
+ *
+ * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
+ * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
+ * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
+ * depending on specificity.
+ *
+ * Consider organizing styles into separate files for maintainability.
+ */
+@import "actiontext";
+
+:root, [data-theme="default"] {
+--primary-color: #DDF6D2;
+  --secondary-color: #ECFAE5;
+  --accent-color: #CAE8BD;
+  --dark-color: #B0DB9C;
+  --text-color: #1F2937;
+  --google-red: #EA4335;
+  --facebook-blue: #3b5998;
+}
+
+[data-theme="velvet rose"] {
+  --dark-color: #6E1430;
+  --text-color: #9A3A65;
+  --accent-color: #E59DB8;
+  --primary-color: #F7D7E6;
+  --secondary-color:#E59DB8;
+
+}
+
+[data-theme="ocean deep"] {
+    --primary-color: #E0F7FA;
+    --secondary-color: #81D4FA;
+    --accent-color: #0288D1;
+    --dark-color: #01579B;
+    --text-color: #0D1B2A;
+
+}
+
+[data-theme="peach crush"] {
+    --primary-color: #FFF0EB;
+    --secondary-color: #FFD6D6;
+    --accent-color: #FFABAB;
+    --dark-color: #FF8C8C;
+    --text-color: #2E2E2E;
+
+}
+
+[data-theme="aurora pop"] {
+  --primary-color: #F8EDEB;
+  --secondary-color: #D0F4DE;
+  --accent-color: #A9DEF9;
+  --dark-color: #6e4e81;
+  --text-color: #212121;
+}
+
+[data-theme="charcoal mint"] {
+    --primary-color: #1F1F1F;
+    --secondary-color: #2E2E2E;
+    --accent-color: #9AEBA3;
+    --dark-color: #56C596;
+    --text-color: #63715a;
+}
+
+[data-theme="sunset blush"]{
+    --primary-color: #FFF3E6;
+    --secondary-color: #FFD6BA;
+    --accent-color: #FA8B60;
+    --dark-color: #C8553D;
+    --text-color: #2A2A2A;
+}
+
+[data-theme="royal indigo"]{
+    --primary-color: #F3E5F5;
+    --secondary-color: #CE93D8;
+    --accent-color: #8E24AA;
+    --dark-color: #5E35B1;
+    --text-color: #18031d;
+}
+
+[data-theme="citrus grove"]{
+    --primary-color: #FFF9C4;
+    --secondary-color: #FFE082;
+    --accent-color: #FFB300;
+    --dark-color: #FF6F00;
+    --text-color: #212121;
+}
+
+[data-theme="slate mist"]{
+    --primary-color: #F4F4F4;
+    --secondary-color: #E0E0E0;
+    --accent-color: #9E9E9E;
+    --dark-color: #616161;
+    --text-color: #1F1F1F;
+
+}
+
+:root, [data-font="clean-sans"] {
+  --font-family: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+[data-font="modern mono"] {
+  --font-family: 'Fira Code', 'Courier New', Courier, monospace;
+}
+
+[data-font="elegant serif-sans"] {
+  --font-family: 'Merriweather', Georgia, 'Times New Roman', serif;
+}
+
+[data-font="classic humanist"] {
+  --font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+[data-font="round display"] {
+  --font-family: 'Poppins', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+[data-font="friendly script"] {
+  --font-family: 'Pacifico', 'Comic Sans MS', cursive, sans-serif;
+}
+
+[data-font="minimal grotesk"] {
+  --font-family: 'Space Grotesk', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+[data-font="neutral sans"] {
+  --font-family: 'Open Sans', 'Helvetica Neue', Helvetica, sans-serif;
+}
+
+[data-font="refined display"] {
+  --font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+}
+
+[data-font="code terminal"] {
+  --font-family: 'JetBrains Mono', 'Courier New', Courier, monospace;
+}
+
+body {
+  font-family: var(--font-family);
+}
+
+.notice, .alert {
+  padding: 14px 18px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid transparent;
+}
+
+.notice {
+  background-color: var(--primary-light);
+  color: var(--text-color);
+  border-color: var(--menu-hover);
+}
+
+.alert {
+  background-color: #FFEBE6;
+  color: #CC0000;
+  border-color: #FFB3AB;
+}
+

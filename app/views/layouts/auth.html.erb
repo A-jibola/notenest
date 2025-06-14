@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Notenest" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
+    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body data-theme="<%= current_user&.theme || 'default' %>" style="font-family: var(--font-<%= current_user&.font || 'sans' %>);">
+    <main>
+    <% if false %>
+
+      <% if user_signed_in? %>
+        <%= button_to 'Sign Out', destroy_user_session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Sign In', new_user_session_path %>
+      <% end %>
+     <% end %>
+      
+
+      <%= yield %>
+    </main>
+
+
+    <% if flash[:console_log] %>
+      <script>
+        console.log("<%= j flash[:console_log] %>");
+      </script>
+    <% end %>
+  </body>
+</html>

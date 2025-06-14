@@ -1,0 +1,13 @@
+:root {
+    --primary: #DDF6D2;
+    --secondary: #ECFAE5;
+    --accent: #CAE8BD;
+    --highlight: #B0DB9C;
+  
+    --text-primary: #1A1A1A;
+    --text-secondary: #4B5563;
+  
+    --error: #EF4444;
+    --success: #22C55E;
+    --border: #D1D5DB;
+  }

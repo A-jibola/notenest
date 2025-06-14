@@ -1,0 +1,69 @@
+<%= form_with(model: @note, local: true, class: "space-y-6 p-6 bg-white rounded-2xl shadow-xl", data: { controller: "steps sortable" }) do |form| %>
+  
+  <% if @note.errors.any? %>
+    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+      <h2 class="font-semibold mb-2"><%= pluralize(@note.errors.count, "error") %> prevented this note from being saved:</h2>
+      <ul class="list-disc list-inside">
+        <% @note.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :title, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :title, class: "mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]" %>
+  </div>
+
+  <div>
+    <%= form.label :tags_input, "Tags (Comma Separated)", class: "block text-sm font-medium text-gray-700" %>
+    <%= form.text_field :tags_input, value: @note.tags.map(&:name).join(","), class: "mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]" %>
+  </div>
+
+  <div>
+    <%= form.label :description, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.rich_text_area :description, class: "mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]" %>
+  </div>
+
+  <div>
+    <%= form.label :due_date, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.datetime_select :due_date, class: "mt-1 block w-full" %>
+  </div>
+
+  <div>
+    <%= form.label :status, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.select :status, Note.statuses.keys, {}, class: "mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-[var(--primary-color)] focus:border-[var(--primary-color)]" %>
+  </div>
+
+  <div>
+    <%= form.label :reminder_time, class: "block text-sm font-medium text-gray-700" %>
+    <%= form.datetime_select :reminder_time, class: "mt-1 block w-full" %>
+  </div>
+
+  <!-- Steps Section -->
+  <div>
+    <h3 class="text-lg font-semibold text-gray-800 mb-2">Steps</h3>
+    <div id="steps" data-controller="sortable" data-sortable-target="list" class="space-y-4">
+      <%= form.fields_for :steps do |step_form| %>
+        <%= render 'step_fields', f: step_form %>
+      <% end %>
+    </div>
+
+    <template id="step-template">
+      <%= form.fields_for :steps, Step.new, child_index: "NEW_RECORD" do |sf| %>
+        <%= render 'step_fields', f: sf %>
+      <% end %>
+    </template>
+
+    <button type="button" class="inline-flex items-center px-4 py-2 border border-[var(--primary-color)] text-[var(--text-color)] rounded-lg hover:bg-[var(--primary-color)] focus:outline-none mt-3 transition-all" data-action="steps#add">
+      + Add Step
+    </button>
+  </div>
+
+  <!-- Submit Button -->
+  <div>
+    <%= form.submit "Save Note", class: "w-full px-4 py-2 bg-[var(--primary-color)] text-[var(--text-color)] rounded-lg font-medium hover:bg-[var(--accent-color)] transition" %>
+  </div>
+
+<% end %>

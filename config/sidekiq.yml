@@ -1,0 +1,9 @@
+:concurrency: 5
+
+:schedule:
+  reminder_job:
+    cron: "*/5 * * * *"
+    class: "ReminderEmailNotificationJob"
+
+:queues:
+  - default

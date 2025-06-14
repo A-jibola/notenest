@@ -1,0 +1,29 @@
+<div class="min-h-screen flex items-center justify-center bg-[var(--color-secondary)] px-6 py-12">
+  <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
+
+    <h1 class="text-2xl font-bold text-center mb-6">Resend confirmation instructions</h1>
+
+      <% if notice %>
+      <p class="notice"><%= notice %></p>
+      <% end %>
+      <% if alert%>
+      <p class="alert"><%= alert %></p>
+      <% end %>
+
+    <%= form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field mb-4">
+        <%= f.label :email, class: "block text-sm font-medium mb-1" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-input w-full border border-gray-300 rounded p-2" %>
+      </div>
+
+      <div class="actions mb-6">
+        <%= f.submit "Resend confirmation instructions",  class: "w-full bg-[var(--dark-color)] text-white py-2 rounded hover:bg-color-700 transition" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+
+</div>
+</div>

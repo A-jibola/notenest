@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Email Change Notification</title>
+    <style>
+      :root {
+        --primary-bg: #DDF6D2;
+        --accent-bg: #B0DB9C;
+        --text-color: #333333;
+        --button-color: #ffffff;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--primary-bg);
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        color: var(--text-color);
+        line-height: 1.6;
+      }
+
+      .email-container {
+        max-width: 600px;
+        margin: 40px auto;
+        background: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+      }
+
+      .email-header {
+        background: var(--accent-bg);
+        padding: 30px;
+        text-align: center;
+        font-size: 26px;
+        font-weight: bold;
+        color: #ffffff;
+      }
+
+      .email-body {
+        padding: 30px;
+        font-size: 16px;
+      }
+
+      .email-footer {
+        text-align: center;
+        font-size: 12px;
+        color: #999;
+        padding: 20px;
+      }
+
+      a {
+        color: var(--accent-bg);
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <div class="email-header">
+        Notenest
+      </div>
+
+      <div class="email-body">
+        <h2 style="margin-top: 0;">Hello <%= @email %>!</h2>
+
+        <% if @resource.try(:unconfirmed_email?) %>
+          <p>
+            We're reaching out to let you know that your email is in the process of being changed to:
+          </p>
+          <p style="font-weight: bold; font-size: 18px;"><%= @resource.unconfirmed_email %></p>
+          <p>
+            If you didn't request this, please reach out to our support team immediately.
+          </p>
+        <% else %>
+          <p>
+            We're contacting you to confirm that your email has successfully been changed to:
+          </p>
+          <p style="font-weight: bold; font-size: 18px;"><%= @resource.email %></p>
+          <p>
+            If you didn't authorize this change, please contact us immediately.
+          </p>
+        <% end %>
+
+        <p style="margin-top: 30px;">
+          Thanks for staying with us,<br>
+          The Notenest Team
+        </p>
+      </div>
+
+      <div class="email-footer">
+        &copy; <%= Time.current.year %> Notenest — All rights reserved.
+      </div>
+    </div>
+  </body>
+</html>

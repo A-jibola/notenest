@@ -1,0 +1,9 @@
+<h1>Reminder: Step "<%= @step.name %>"</h1>
+
+<p>Hi <%= @user.first_name %>,</p>
+
+<p>This is a reminder for the step "<strong><%= @step.name %></strong>" in your note "<strong><%= @step.note.title %></strong>".</p>
+
+<p>Summary: <%= @step.summary %></p>
+
+<p>Check it out in your <a href="<%= note_url(@step.note) %>">NoteNest app</a>.</p>

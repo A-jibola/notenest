@@ -1,0 +1,10 @@
+<div class="mb-2">
+<%= link_to '← Back', notes_path, class: "text-[var(--text-color)] hover:underline" %>
+</div>
+<div>
+<h1 class="text-3xl font-bold text-[var(--text-color)] text-center">
+    <%= action_name.capitalize %> Note
+</h1>
+</div>
+
+<%= render 'form', note: @note %>
