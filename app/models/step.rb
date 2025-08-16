@@ -1,6 +1,5 @@
 class Step < ApplicationRecord
   belongs_to :note
-  has_many :attachments, as: :attachable, dependent: :destroy
   has_rich_text :details
   has_many :notifications, as: :notifiable
 

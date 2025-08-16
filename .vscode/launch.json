@@ -29,7 +29,7 @@
             "type": "ruby_lsp",
             "name": "Attach debugger",
             "request": "attach",
-            "debugSocketPath": "/run/user/1000/rdbg-46580"
+            "debugSocketPath": "/run/user/1000/rdbg-3814"
         }
     ]
 }

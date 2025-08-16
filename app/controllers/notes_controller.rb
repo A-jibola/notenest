@@ -30,7 +30,6 @@ class NotesController < ApplicationController
 
   def update
     @note = current_user.notes.find(params[:id])
-    binding.break
 
     previous_incomplete_steps = @note.steps.where.not(status: "completed").pluck(:id)
 
