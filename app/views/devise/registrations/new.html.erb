@@ -1,55 +1,54 @@
-<div class="min-h-screen flex items-center justify-center bg-[var(--primary-color)]">
+<div class="min-h-screen flex items-center justify-center bg-[var(--primary-color)] py-6">
   <div class="flex flex-col md:flex-row w-full max-w-5xl shadow-lg bg-white rounded-lg overflow-hidden">
 
-<!-- Left Side (Visual) -->
-    <div class="hidden md:flex w-1/2 bg-[var(--accent-color)] items-center justify-center p-8">
-      <h2 class="text-4xl font-bold text-[var(--text-color)]">Welcome to Notenest ✨ </h2>
+    <!-- Left Side (Visual) -->
+    <div class="hidden md:flex w-1/2 bg-[var(--accent-color)] items-center justify-center p-6">
+      <h2 class="text-2xl font-bold text-[var(--text-color)]">Welcome to Notenest ✨</h2>
     </div>
 
-    <div class="w-full md:w-1/2 p-10">
-      <h2 class="text-3xl font-bold text-[var(--text-color)] mb-6">Sign Up</h2>
+    <div class="w-full md:w-1/2 px-6 py-6">
+      <h2 class="text-2xl font-bold text-[var(--text-color)] mb-4">Sign Up</h2>
 
-      
       <% if notice %>
-      <p class="notice"><%= notice %></p>
+      <div class="notice mb-3"><%= notice %></div>
       <% end %>
-      <% if alert%>
-      <p class="alert"><%= alert %></p>
+      <% if alert %>
+      <div class="alert mb-3"><%= alert %></div>
       <% end %>
 
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <%= render "devise/shared/error_messages", resource: resource %>
 
-        <div class="mb-4">
-          <%= f.label :first_name , class: "block mb-1 text-[var(--text-color)]"%>
-          <%= f.text_field :first_name, required: true, autocomplete: "first_name", class: "w-full px-4 py-1 border rounded"  %>
+        <div class="mb-3">
+          <%= f.label :first_name, class: "block mb-1 text-sm font-medium text-[var(--text-color)]" %>
+          <%= f.text_field :first_name, required: true, autocomplete: "first_name", class: "w-full px-4 py-2 border border-[var(--accent-color)] rounded focus:ring-2 focus:ring-[var(--dark-color)] focus:outline-none transition" %>
         </div>
         
-        <div class="mb-4">
-          <%= f.label :last_name, class: "block mb-1 text-[var(--text-color)]" %>
-          <%= f.text_field :last_name, required: true, autocomplete: "last_name", class: "w-full px-4 py-1 border rounded"  %>
+        <div class="mb-3">
+          <%= f.label :last_name, class: "block mb-1 text-sm font-medium text-[var(--text-color)]" %>
+          <%= f.text_field :last_name, required: true, autocomplete: "last_name", class: "w-full px-4 py-2 border border-[var(--accent-color)] rounded focus:ring-2 focus:ring-[var(--dark-color)] focus:outline-none transition" %>
         </div>
 
-        <div class="mb-4">
-          <%= f.label :email, class: "block mb-1 text-[var(--text-color)]" %>
-          <%= f.email_field :email, reqired: true, autocomplete: "email", class: "w-full px-4 py-1 border rounded"  %>
+        <div class="mb-3">
+          <%= f.label :email, class: "block mb-1 text-sm font-medium text-[var(--text-color)]" %>
+          <%= f.email_field :email, required: true, autocomplete: "email", class: "w-full px-4 py-2 border border-[var(--accent-color)] rounded focus:ring-2 focus:ring-[var(--dark-color)] focus:outline-none transition" %>
         </div>
 
-        <div class="mb-4">
-          <%= f.label :password, class: "mb-1 text-[var(--text-color)]" %>
+        <div class="mb-3">
+          <%= f.label :password, class: "block mb-1 text-sm font-medium text-[var(--text-color)]" %>
           <% if @minimum_password_length %>
-          <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <span class="text-xs text-gray-500">(<%= @minimum_password_length %> characters minimum)</span>
           <% end %>
-          <%= f.password_field :password, required: true, autocomplete: "new-password", class: "w-full px-4 py-1 border rounded"  %>
+          <%= f.password_field :password, required: true, autocomplete: "new-password", class: "w-full px-4 py-2 border border-[var(--accent-color)] rounded focus:ring-2 focus:ring-[var(--dark-color)] focus:outline-none transition mt-1" %>
         </div>
 
-        <div class="mb-4">
-          <%= f.label :password_confirmation, class: "block mb-1 text-[var(--text-color)]" %>
-          <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "w-full px-4 py-1 border rounded"  %>
+        <div class="mb-3">
+          <%= f.label :password_confirmation, class: "block mb-1 text-sm font-medium text-[var(--text-color)]" %>
+          <%= f.password_field :password_confirmation, required: true, autocomplete: "new-password", class: "w-full px-4 py-2 border border-[var(--accent-color)] rounded focus:ring-2 focus:ring-[var(--dark-color)] focus:outline-none transition" %>
         </div>
 
-        <div class="actions">
-          <%= f.submit "Sign up",  class: "w-full bg-[var(--dark-color)] text-white py-2 rounded hover:bg-color-700 transition" %>
+        <div class="actions mb-3">
+          <%= f.submit "Sign up", class: "w-full bg-[var(--dark-color)] text-white py-2 rounded hover:opacity-90 transition font-medium" %>
         </div>
 
       <% end %>
