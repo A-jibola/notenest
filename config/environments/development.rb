@@ -45,10 +45,10 @@ Rails.application.configure do
 
   # Set config mailer smtp settings
   config.action_mailer.smtp_settings = {
-    user_name: "apikey",
-    password: ENV["SENGDRID_KEY"],
-    domain: "localhost",
-    address: "smtp.sendgrid.net",
+    user_name: "resend",
+    password: ENV["RESEND_KEY"],
+    domain: ENV["WEBSITE_DOMAIN"],
+    address: "smtp.resend.com",
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true

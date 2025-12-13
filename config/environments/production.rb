@@ -65,10 +65,10 @@ Rails.application.configure do
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
 
   config.action_mailer.smtp_settings = {
-    user_name: "apikey",
-    password: ENV["SENGDRID_KEY"],
+    user_name: "resend",
+    password: ENV["RESEND_KEY"],
     domain: ENV["WEBSITE_DOMAIN"],
-    address: "smtp.sendgrid.net",
+    address: "smtp.resend.com",
     port: 587,
     authentication: :plain,
     enable_starttls_auto: true

@@ -1,5 +1,5 @@
 class ReminderMailer < ApplicationMailer
-  default from: "okesolajibola@gmail.com"
+  default from: "onboarding@resend.dev"
   # let's get this to a better email next time
 
   def note_reminder(note)
