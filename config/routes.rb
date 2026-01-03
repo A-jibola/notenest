@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   resources :notes
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  # Redirect favicon.ico requests to icon.png
+  get "favicon.ico", to: redirect("icon.png", status: 301)
+
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
