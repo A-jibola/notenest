@@ -95,7 +95,8 @@ production:
   cache:
     <<: *primary_production
     <% if ENV['DATABASE_URL'].present? %>
-    url: <%= ENV['DATABASE_URL'].sub(%r{/[^/]+$}, '/notenest_production_cache') %>
+    <% uri = URI.parse(ENV['DATABASE_URL']); uri.path = '/notenest_production_cache' %>
+    url: <%= uri.to_s %>
     <% else %>
     database: notenest_production_cache
     <% end %>
@@ -103,7 +104,8 @@ production:
   queue:
     <<: *primary_production
     <% if ENV['DATABASE_URL'].present? %>
-    url: <%= ENV['DATABASE_URL'].sub(%r{/[^/]+$}, '/notenest_production_queue') %>
+    <% uri = URI.parse(ENV['DATABASE_URL']); uri.path = '/notenest_production_queue' %>
+    url: <%= uri.to_s %>
     <% else %>
     database: notenest_production_queue
     <% end %>
@@ -111,7 +113,8 @@ production:
   cable:
     <<: *primary_production
     <% if ENV['DATABASE_URL'].present? %>
-    url: <%= ENV['DATABASE_URL'].sub(%r{/[^/]+$}, '/notenest_production_cable') %>
+    <% uri = URI.parse(ENV['DATABASE_URL']); uri.path = '/notenest_production_cable' %>
+    url: <%= uri.to_s %>
     <% else %>
     database: notenest_production_cable
     <% end %>
