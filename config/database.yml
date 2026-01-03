@@ -81,8 +81,8 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: notenest_production
-    username: notenest
+    database: notenest_db
+    username: neondb_owner
     password: <%= ENV["NOTENEST_DATABASE_PASSWORD"] %>
   cache:
     <<: *primary_production
