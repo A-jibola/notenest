@@ -81,18 +81,38 @@ test:
 production:
   primary: &primary_production
     <<: *default
-    database: notenest_db
-    username: neondb_owner
-    password: <%= ENV["NOTENEST_DATABASE_PASSWORD"] %>
+    # Use DATABASE_URL if provided (Render sets this automatically)
+    # Otherwise fall back to individual environment variables
+    <% if ENV['DATABASE_URL'].present? %>
+    url: <%= ENV['DATABASE_URL'] %>
+    <% else %>
+    database: <%= ENV.fetch('DATABASE_NAME', 'notenest_db') %>
+    username: <%= ENV.fetch('DATABASE_USERNAME', 'neondb_owner') %>
+    password: <%= ENV.fetch('NOTENEST_DATABASE_PASSWORD', '') %>
+    host: <%= ENV.fetch('NOTENEST_DATABASE_HOST', 'localhost') %>
+    port: <%= ENV.fetch('DATABASE_PORT', 5432) %>
+    <% end %>
   cache:
     <<: *primary_production
+    <% if ENV['DATABASE_URL'].present? %>
+    url: <%= ENV['DATABASE_URL'].sub(%r{/[^/]+$}, '/notenest_production_cache') %>
+    <% else %>
     database: notenest_production_cache
+    <% end %>
     migrations_paths: db/cache_migrate
   queue:
     <<: *primary_production
+    <% if ENV['DATABASE_URL'].present? %>
+    url: <%= ENV['DATABASE_URL'].sub(%r{/[^/]+$}, '/notenest_production_queue') %>
+    <% else %>
     database: notenest_production_queue
+    <% end %>
     migrations_paths: db/queue_migrate
   cable:
     <<: *primary_production
+    <% if ENV['DATABASE_URL'].present? %>
+    url: <%= ENV['DATABASE_URL'].sub(%r{/[^/]+$}, '/notenest_production_cable') %>
+    <% else %>
     database: notenest_production_cable
+    <% end %>
     migrations_paths: db/cable_migrate
