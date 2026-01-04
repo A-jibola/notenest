@@ -12,7 +12,6 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
 
   def self.from_omniauth(auth)
-    binding.break
     user = User.find_by(provider: auth.provider, uid: auth.id)
     if user.nil? && auth.info.email.present?
       user = User.find_by(email: auth.info.email)
