@@ -31,7 +31,43 @@ end
 
 OAuth2::Client.prepend(OAuth2TimeoutPatch)
 
-# Note: OAuth providers are configured in config/initializers/devise.rb
-# to ensure Devise route helpers (like omniauth_authorize_path) are generated.
-# The OAuth2 timeout patch above applies globally to all OAuth2 requests,
-# so providers configured in Devise will automatically use extended timeouts.
+# Configure OmniAuth providers with timeout settings
+# Note: We configure providers here instead of in devise.rb to have more control
+# over timeout settings. Devise will still handle the routes and callbacks.
+Rails.application.config.middleware.use OmniAuth::Builder do
+  # Facebook OAuth configuration
+  if ENV["FACEBOOK_APP_ID"].present? && ENV["FACEBOOK_APP_SECRET"].present?
+    provider :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"],
+      client_options: {
+        site: 'https://graph.facebook.com/v18.0',
+        authorize_url: 'https://www.facebook.com/v18.0/dialog/oauth',
+        token_url: 'https://graph.facebook.com/v18.0/oauth/access_token'
+      },
+      http_options: {
+        timeout: 30,
+        open_timeout: 30,
+        read_timeout: 30
+      }
+  end
+
+  # Google OAuth2 configuration
+  if ENV["GOOGLE_CLIENT_ID"].present? && ENV["GOOGLE_CLIENT_SECRET"].present?
+    provider :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"],
+      {
+        name: 'google_oauth2',
+        scope: 'email,profile',
+        prompt: 'select_account',
+        access_type: 'offline',
+        client_options: {
+          site: 'https://accounts.google.com',
+          authorize_url: '/o/oauth2/auth',
+          token_url: '/o/oauth2/token'
+        },
+        http_options: {
+          timeout: 30,
+          open_timeout: 30,
+          read_timeout: 30
+        }
+      }
+  end
+end
