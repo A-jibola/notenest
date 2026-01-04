@@ -270,8 +270,7 @@ Devise.setup do |config|
 
   # ==> OmniAuth
   # OAuth providers are configured here for Devise route helpers.
-  # Timeout settings are configured globally in config/initializers/omniauth.rb
-  # via OAuth2 client patch, so all OAuth requests will use extended timeouts.
+  # Timeout settings are configured globally via Faraday defaults in config/initializers/omniauth.rb
   config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"]
   config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"]
 
