@@ -4,6 +4,9 @@
   reminder_job:
     cron: "*/5 * * * *"
     class: "ReminderEmailNotificationJob"
+  user_deactivation_job:
+    cron: "0 8 * * *"
+    class: "UserDeactivationJob"
 
 :queues:
   - default

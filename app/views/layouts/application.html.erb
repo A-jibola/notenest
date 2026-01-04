@@ -65,5 +65,21 @@
      <%= yield %>
     </main>
 
+    <!-- Welcome Modal -->
+    <div data-controller="welcome-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center" data-welcome-modal-target="backdrop">
+      <div data-welcome-modal-target="modal" class="hidden bg-white rounded-lg shadow-xl max-w-md w-full mx-4 p-6 z-50">
+        <h2 class="text-2xl font-bold mb-4 text-[var(--text-color)]">Welcome to Notenest</h2>
+        <p class="text-[var(--text-color)] mb-6">
+          The version you are accessing is a project mode which will deactivate user accounts after 1 - 2 days of user creation unless given privileged access. Thank you for trying it out.
+        </p>
+        <button 
+          data-action="click->welcome-modal#dismiss" 
+          class="w-full bg-[var(--primary-color)] text-white py-2 px-4 rounded hover:bg-[var(--dark-color)] transition"
+        >
+          I understand
+        </button>
+      </div>
+    </div>
+
   </body>
 </html>
