@@ -3,7 +3,7 @@ class UserDeactivationJob < ApplicationJob
 
   def perform(*args)
     # Find all users without granted access
-    users_without_access = User.where(granted_access: false).or(User.where(granted_access: nil))
+    users_without_access = User.where(granted_access: false)
     
     users_without_access.find_each do |user|
       days_since_creation = (Time.current - user.created_at) / 1.day
