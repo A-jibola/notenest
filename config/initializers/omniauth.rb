@@ -4,25 +4,7 @@
 OmniAuth.config.allowed_request_methods = [:post, :get]
 
 # Configure OAuth2 client timeouts globally
-# Patch the OAuth2 strategy to ensure timeouts are properly set
-module OmniAuth
-  module Strategies
-    class OAuth2
-      def client
-        # Force timeout settings
-        options.client_options ||= {}
-        options.client_options[:connection_opts] ||= {}
-        options.client_options[:connection_opts][:request] ||= {}
-        options.client_options[:connection_opts][:request][:open_timeout] = 60  # 60 seconds to open connection
-        options.client_options[:connection_opts][:request][:timeout] = 90        # 90 seconds total timeout
-        
-        super
-      end
-    end
-  end
-end
-
-# Also patch OAuth2::Client directly as a fallback
+# Patch OAuth2::Client to ensure timeouts are properly set
 module OAuth2
   class Client
     alias_method :original_initialize, :initialize
