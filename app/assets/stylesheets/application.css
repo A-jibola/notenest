@@ -8,7 +8,7 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
-@import "actiontext";
+@import "actiontext.css";
 
 :root, [data-theme="default"] {
 --primary-color: #DDF6D2;
