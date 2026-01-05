@@ -6,15 +6,20 @@ export default class extends Controller {
 
     connect(){
         const dropdown = document.getElementById('notification-dropdown');
+        const bell = document.getElementById('notification-bell');
+        
+        // Check if elements exist before adding event listeners
+        if (!dropdown || !bell) {
+            return;
+        }
+        
         this.bellTarget.addEventListener('click', () => {
-        dropdown.classList.toggle('hidden');
+            dropdown.classList.toggle('hidden');
         });
 
         document.addEventListener('click', (e) => {
-            const dropdown = document.getElementById('notification-dropdown');
-            const bell = document.getElementById('notification-bell');
             if (!dropdown.contains(e.target) && !bell.contains(e.target)) {
-                    dropdown.classList.add('hidden');
+                dropdown.classList.add('hidden');
             }
         })
 
