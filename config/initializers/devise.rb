@@ -293,6 +293,7 @@ Devise.setup do |config|
       scope: 'email,profile',
       prompt: 'select_account',
       access_type: 'offline',
+      skip_token_info: true,  # Skip token_info validation to avoid "Invalid Value" errors
       client_options: {
         site: 'https://accounts.google.com',
         authorize_url: 'https://accounts.google.com/o/oauth2/auth',
