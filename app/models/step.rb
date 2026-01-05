@@ -15,7 +15,7 @@ class Step < ApplicationRecord
   after_initialize :set_default_status, if: :new_record?
 
   private
-  scope :due_reminders, -> { where(reminder_at: false).where.not(reminder_at: nil).where("reminder_at <=?", Time.current) }
+  scope :due_reminders, -> { where(reminder_sent: false).where.not(reminder_at: nil).where("reminder_at <=?", Time.current) }
 
   def set_default_status
     self.status ||= :pending
