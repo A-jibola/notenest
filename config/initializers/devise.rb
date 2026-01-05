@@ -278,8 +278,9 @@ Devise.setup do |config|
       client_options: {
         connection_opts: {
           request: {
-            open_timeout: 60,
-            timeout: 90
+            open_timeout: 120,  # Increased to 120 seconds
+            timeout: 180,        # Increased to 180 seconds (3 minutes)
+            read_timeout: 120    # Added explicit read timeout
           }
         }
       }
@@ -293,10 +294,14 @@ Devise.setup do |config|
       prompt: 'select_account',
       access_type: 'offline',
       client_options: {
+        site: 'https://accounts.google.com',
+        authorize_url: 'https://accounts.google.com/o/oauth2/auth',
+        token_url: 'https://oauth2.googleapis.com/token',
         connection_opts: {
           request: {
-            open_timeout: 60,
-            timeout: 90
+            open_timeout: 120,  # Increased to 120 seconds
+            timeout: 180,        # Increased to 180 seconds (3 minutes)
+            read_timeout: 120    # Added explicit read timeout
           }
         }
       }
