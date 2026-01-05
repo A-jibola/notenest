@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-# Configure OmniAuth timeout settings
-OmniAuth.config.request_validation_timeout = 300 # 5 minutes
+# Configure OmniAuth settings
 OmniAuth.config.allowed_request_methods = [:post, :get]
 
 # Configure OAuth2 client timeouts globally
