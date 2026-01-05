@@ -278,8 +278,8 @@ Devise.setup do |config|
       client_options: {
         connection_opts: {
           request: {
-            open_timeout: 30,
-            timeout: 60
+            open_timeout: 60,
+            timeout: 90
           }
         }
       }
@@ -295,8 +295,8 @@ Devise.setup do |config|
       client_options: {
         connection_opts: {
           request: {
-            open_timeout: 30,
-            timeout: 60
+            open_timeout: 60,
+            timeout: 90
           }
         }
       }
