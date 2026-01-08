@@ -29,7 +29,7 @@ class User < ApplicationRecord
     # Step 1: Try to find user by provider and uid
     step1_start = Time.current
     Rails.logger.info "[OAUTH DEBUG] Step 1: Starting user lookup by provider/uid at #{step1_start}"
-    user = User.find_by(provider: auth.provider, uid: auth.id)
+    user = User.find_by(provider: auth.provider, uid: auth.uid)
     step1_elapsed = Time.current - step1_start
     Rails.logger.info "[OAUTH DEBUG] Step 1: Completed in #{step1_elapsed}s. Found: #{user.present? ? "Yes (ID: #{user.id})" : "No"}"
     
@@ -74,7 +74,7 @@ class User < ApplicationRecord
       
       user_attrs = {
         provider: auth.provider,
-        uid: auth.id,
+        uid: auth.uid,
         email: auth.info&.email,
         first_name: auth.info&.first_name || full_name&.first || "user",
         last_name: auth.info&.last_name || full_name&.last || "",
