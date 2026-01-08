@@ -278,7 +278,7 @@ Devise.setup do |config|
         request: {
           open_timeout: 30,      # 30 seconds to open connection
           read_timeout: 60,      # 30 seconds to read response
-          timeout: 60            # 30 seconds total timeout
+          timeout: 120            # 30 seconds total timeout
         }
       }
     }
@@ -290,7 +290,7 @@ Devise.setup do |config|
         request: {
           open_timeout: 30,      # 30 seconds to open connection
           read_timeout: 60,      # 30 seconds to read response
-          timeout: 60            # 30 seconds total timeout
+          timeout: 120            # 30 seconds total timeout
         }
       }
     }
