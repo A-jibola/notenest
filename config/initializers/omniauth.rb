@@ -70,7 +70,8 @@ Faraday::Connection.class_eval do
   end
 end if defined?(Faraday)
 
-# Add logging to OAuth2::Client to track when it makes requests
+# Add logging and error handling to OAuth2::Client to track when it makes requests
+# This patch also handles the case where oauth2 gem incorrectly treats valid Google responses as errors
 if defined?(OAuth2)
   OAuth2::Client.class_eval do
     alias_method :original_get_token, :get_token
@@ -85,9 +86,57 @@ if defined?(OAuth2)
         elapsed = Time.current - start_time
         Rails.logger.info "[OAUTH DEBUG] OAuth2::Client.get_token completed in #{elapsed}s" if defined?(Rails.logger)
         token
-      rescue => e
+      rescue OAuth2::Error => e
         elapsed = Time.current - start_time
         Rails.logger.error "[OAUTH DEBUG] OAuth2::Client.get_token ERROR after #{elapsed}s: #{e.class} - #{e.message}" if defined?(Rails.logger)
+        
+        # Check if the error message is actually a valid response (contains access_token)
+        # This happens when oauth2 gem incorrectly parses Google's response that contains both access_token and id_token
+        error_message = e.message.to_s
+        if error_message.include?('"access_token"') || error_message.include?("access_token")
+          Rails.logger.info "[OAUTH DEBUG] Error message contains access_token, attempting to parse response" if defined?(Rails.logger)
+          
+          begin
+            # Try to parse the error message as JSON (it's actually the response body)
+            response_data = JSON.parse(error_message)
+            
+            if response_data['access_token'] || response_data[:access_token]
+              access_token_value = response_data['access_token'] || response_data[:access_token]
+              Rails.logger.info "[OAUTH DEBUG] Successfully extracted access_token from error response" if defined?(Rails.logger)
+              
+              # Create an access token manually from the parsed response
+              token_hash = {
+                'access_token' => access_token_value,
+                'token_type' => (response_data['token_type'] || response_data[:token_type] || 'Bearer'),
+                'expires_in' => (response_data['expires_in'] || response_data[:expires_in]),
+                'refresh_token' => (response_data['refresh_token'] || response_data[:refresh_token])
+              }
+              
+              # Remove nil values
+              token_hash.compact!
+              
+              # Create the access token using the client
+              access_token = access_token_class.new(
+                self,
+                access_token_value,
+                token_hash.merge(access_token_opts)
+              )
+              
+              elapsed = Time.current - start_time
+              Rails.logger.info "[OAUTH DEBUG] Successfully created access token from response in #{elapsed}s" if defined?(Rails.logger)
+              return access_token
+            end
+          rescue JSON::ParserError => parse_error
+            Rails.logger.error "[OAUTH DEBUG] Failed to parse error message as JSON: #{parse_error.message}" if defined?(Rails.logger)
+            Rails.logger.error "[OAUTH DEBUG] Error message was: #{error_message[0..500]}" if defined?(Rails.logger)
+          end
+        end
+        
+        # If we can't recover, re-raise the original error
+        raise e
+      rescue => e
+        elapsed = Time.current - start_time
+        Rails.logger.error "[OAUTH DEBUG] OAuth2::Client.get_token UNEXPECTED ERROR after #{elapsed}s: #{e.class} - #{e.message}" if defined?(Rails.logger)
         raise e
       end
     end

@@ -288,9 +288,9 @@ Devise.setup do |config|
     client_options: {
       connection_opts: {
         request: {
-          open_timeout: 60,      # 30 seconds to open connection
-          read_timeout: 120,      # 30 seconds to read response
-          timeout: 180            # 30 seconds total timeout
+          open_timeout: 60,      # 60 seconds to open connection
+          read_timeout: 120,      # 120 seconds to read response
+          timeout: 180            # 180 seconds total timeout
         }
       },
       ssl: {
@@ -298,7 +298,10 @@ Devise.setup do |config|
       }
     },
     access_type: "offline",
-    prompt: "consent"
+    prompt: "consent",
+    # Skip JWT parsing to avoid errors when Google returns both access_token and id_token
+    # This tells the gem to use access_token directly instead of trying to parse the JWT
+    skip_jwt: true
   }
 
   # ==> Warden configuration
