@@ -271,8 +271,30 @@ Devise.setup do |config|
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
-  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"]
-  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"]
+  config.omniauth :facebook, ENV["FACEBOOK_APP_ID"], ENV["FACEBOOK_APP_SECRET"],
+  {
+    client_options: {
+      connection_opts: {
+        request: {
+          open_timeout: 30,      # 30 seconds to open connection
+          read_timeout: 60,      # 30 seconds to read response
+          timeout: 60            # 30 seconds total timeout
+        }
+      }
+    }
+  }
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], 
+  {
+    client_options: {
+      connection_opts: {
+        request: {
+          open_timeout: 30,      # 30 seconds to open connection
+          read_timeout: 60,      # 30 seconds to read response
+          timeout: 60            # 30 seconds total timeout
+        }
+      }
+    }
+  }
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or
