@@ -288,12 +288,17 @@ Devise.setup do |config|
     client_options: {
       connection_opts: {
         request: {
-          open_timeout: 30,      # 30 seconds to open connection
-          read_timeout: 60,      # 30 seconds to read response
-          timeout: 120            # 30 seconds total timeout
+          open_timeout: 60,      # 30 seconds to open connection
+          read_timeout: 120,      # 30 seconds to read response
+          timeout: 180            # 30 seconds total timeout
         }
+      },
+      ssl: {
+        verify: true
       }
-    }
+    },
+    access_type: "offline",
+    prompt: "consent"
   }
 
   # ==> Warden configuration
