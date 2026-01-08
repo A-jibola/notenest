@@ -62,7 +62,6 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: ENV["WEBSITE_DOMAIN"] }
 
   config.action_mailer.delivery_method = :smtp
 
@@ -77,6 +76,8 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
+
+  config.action_mailer.default_url_options = { host: ENV["WEBSITE_DOMAIN"], port: ENV["PORT"] }
 
   # config.action_mailer.smtp_settings = {
   #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
