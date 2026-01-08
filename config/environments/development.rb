@@ -49,7 +49,7 @@ Rails.application.configure do
     password: ENV["RESEND_KEY"],
     domain: ENV["WEBSITE_DOMAIN"],
     address: "smtp.resend.com",
-    port: 587,
+    port: 465,
     authentication: :plain,
     enable_starttls_auto: true
   }
