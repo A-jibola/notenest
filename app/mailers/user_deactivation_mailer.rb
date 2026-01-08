@@ -10,3 +10,4 @@ class UserDeactivationMailer < ApplicationMailer
   end
 end
 
+

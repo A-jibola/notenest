@@ -4,3 +4,4 @@ class AddDeactivationWarningSentAtToUsers < ActiveRecord::Migration[8.0]
   end
 end
 
+
