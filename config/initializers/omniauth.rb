@@ -61,9 +61,38 @@ Faraday::Connection.class_eval do
     options[:request][:open_timeout] ||= 60 unless options[:request].key?(:open_timeout)
     options[:request][:read_timeout] ||= 120 unless options[:request].key?(:read_timeout)
     
+    # Log when creating Faraday connections (especially for OAuth)
+    if url && url.to_s.include?('googleapis.com')
+      Rails.logger.info "[OAUTH DEBUG] Creating Faraday connection to #{url} with timeouts: open=#{options[:request][:open_timeout]}s, read=#{options[:request][:read_timeout]}s, total=#{options[:request][:timeout]}s" if defined?(Rails.logger)
+    end
+    
     original_initialize(url, options)
   end
 end if defined?(Faraday)
+
+# Add logging to OAuth2::Client to track when it makes requests
+if defined?(OAuth2)
+  OAuth2::Client.class_eval do
+    alias_method :original_get_token, :get_token
+    
+    def get_token(params, access_token_opts = {}, access_token_class = OAuth2::AccessToken)
+      Rails.logger.info "[OAUTH DEBUG] OAuth2::Client.get_token called at #{Time.current}" if defined?(Rails.logger)
+      Rails.logger.info "[OAUTH DEBUG] Making token request to: #{token_url}" if defined?(Rails.logger)
+      start_time = Time.current
+      
+      begin
+        token = original_get_token(params, access_token_opts, access_token_class)
+        elapsed = Time.current - start_time
+        Rails.logger.info "[OAUTH DEBUG] OAuth2::Client.get_token completed in #{elapsed}s" if defined?(Rails.logger)
+        token
+      rescue => e
+        elapsed = Time.current - start_time
+        Rails.logger.error "[OAUTH DEBUG] OAuth2::Client.get_token ERROR after #{elapsed}s: #{e.class} - #{e.message}" if defined?(Rails.logger)
+        raise e
+      end
+    end
+  end
+end
 
 # Log configuration for debugging
 Rails.logger.info "OmniAuth configured with timeouts: open=60s, read=120s, total=180s" if defined?(Rails.logger)
