@@ -41,17 +41,11 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Set mailer delivery method
-  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.delivery_method = :resend
 
-  # Set config mailer smtp settings
-  config.action_mailer.smtp_settings = {
-    user_name: "resend",
-    password: ENV["RESEND_KEY"],
-    domain: ENV["WEBSITE_DOMAIN"],
-    address: "smtp.resend.com",
-    port: ENV["SMPT_PORT"],
-    authentication: :plain,
-    enable_starttls_auto: true
+  # Set config mailer resend API settings
+  config.action_mailer.resend_settings = {
+    api_key: ENV["RESEND_KEY"]
   }
 
   # Set localhost to be used by links generated in mailer templates.

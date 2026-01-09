@@ -100,7 +100,7 @@ class User < ApplicationRecord
     rescue Net::OpenTimeout, Net::ReadTimeout, Timeout::Error => e
       email_elapsed = Time.current - email_start
       Rails.logger.error "[EMAIL] #{email_type.capitalize} email TIMEOUT after #{email_elapsed}s: #{e.class} - #{e.message}"
-      Rails.logger.error "[EMAIL] This indicates SMTP connection/delivery timeout"
+      Rails.logger.error "[EMAIL] This indicates email delivery timeout (API or network issue)"
       raise e
     rescue => e
       email_elapsed = Time.current - email_start

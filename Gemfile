@@ -81,3 +81,5 @@ gem "activestorage-cloudinary-service"
 
 gem "sidekiq"
 gem "sidekiq-scheduler"
+
+gem "resend", "~> 0.11.0"
