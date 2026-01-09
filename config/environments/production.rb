@@ -70,10 +70,9 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     user_name: "resend",
     password: ENV["RESEND_KEY"],
-    domain: ENV["WEBSITE_DOMAIN"],
     address: "smtp.resend.com",
     port: ENV["SMPT_PORT"],
-    authentication: :plain
+    tls: true
  }
 
   config.action_mailer.default_url_options = { host: ENV["WEBSITE_DOMAIN"], port: ENV["PORT"] }
