@@ -37,8 +37,12 @@ Rails.application.configure do
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
 
-  # Log to STDOUT with the current request id as a default log tag.
-  config.log_tags = [ :request_id ]
+  # Log to STDOUT with detailed request information as log tags.
+  config.log_tags = [
+    :request_id,
+    ->(request) { request.remote_ip },
+    ->(request) { Time.current.strftime("%Y-%m-%d %H:%M:%S") }
+  ]
   config.logger   = ActiveSupport::TaggedLogging.logger(STDOUT)
 
   # Change to "debug" to log everything (including potentially personally-identifiable information!)
@@ -46,6 +50,21 @@ Rails.application.configure do
 
   # Prevent health checks from clogging up the logs.
   config.silence_healthcheck_path = "/up"
+
+  # Enable detailed database query logging.
+  config.active_record.verbose_query_logs = true
+
+  # Append comments with runtime information tags to SQL queries in logs.
+  config.active_record.query_log_tags_enabled = true
+  config.active_record.query_log_tags = [
+    :application,
+    :controller,
+    :action,
+    :job
+  ]
+
+  # Highlight code that enqueued background job in logs.
+  config.active_job.verbose_enqueue_logs = true
 
   # Don't log any deprecations.
   config.active_support.report_deprecations = false
@@ -68,7 +87,7 @@ Rails.application.configure do
   # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
-  
+
   # Set host to be used by links generated in mailer templates.
 
   config.action_mailer.delivery_method = :smtp
@@ -79,7 +98,7 @@ Rails.application.configure do
     user_name: "resend",
     password: ENV["RESEND_KEY"],
     address: "smtp.resend.com",
-    port: ENV["SMPT_PORT"],
+    port: ENV["SMTP_PORT"],
     tls: true
  }
 
