@@ -98,7 +98,7 @@ Rails.application.configure do
     api_key: ENV["RESEND_KEY"]
   }
 
-  config.action_mailer.default_url_options = { host: ENV["WEBSITE_DOMAIN"], port: ENV["PORT"] }
+  config.action_mailer.default_url_options = { host: ENV["WEBSITE_DOMAIN"] }
 
   # config.action_mailer.smtp_settings = {
   #   user_name: Rails.application.credentials.dig(:smtp, :user_name),
