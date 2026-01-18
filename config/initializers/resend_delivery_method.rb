@@ -12,23 +12,23 @@ module ActionMailer
       def deliver!(mail)
         # Ensure API key is set (fallback if not set globally)
         Resend.api_key ||= @settings[:api_key] || ENV["RESEND_KEY"]
-        
+
         # Build email parameters
         email_params = {
-          from: mail.from.first || @settings[:from] || "onboarding@resend.dev",
+          from: mail.from.first || @settings[:from] || "notenest@aomail.ajibola.net",
           to: Array(mail.to),
           subject: mail.subject
         }
-        
+
         # Add CC if present
         email_params[:cc] = Array(mail.cc) if mail.cc.present?
-        
+
         # Add BCC if present
         email_params[:bcc] = Array(mail.bcc) if mail.bcc.present?
-        
+
         # Add reply-to if present
         email_params[:reply_to] = mail.reply_to.first if mail.reply_to.present?
-        
+
         # Handle multipart emails (HTML and text)
         if mail.multipart?
           email_params[:html] = mail.html_part&.body&.to_s
@@ -41,7 +41,7 @@ module ActionMailer
             email_params[:text] = mail.body.to_s
           end
         end
-        
+
         # Handle attachments
         if mail.attachments.any?
           email_params[:attachments] = mail.attachments.map do |attachment|
@@ -52,11 +52,10 @@ module ActionMailer
             }
           end
         end
-        
+
         # Send email via Resend API
         Resend::Emails.send(email_params)
       end
     end
   end
 end
-
